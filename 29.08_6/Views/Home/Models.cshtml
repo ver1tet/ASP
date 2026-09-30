@@ -1,0 +1,81 @@
+@model AspHomework.Models.ExtendedFormModel
+
+@{
+    ViewData["Title"] = "Робота з моделями";
+}
+
+<h2>Форма з розширеною моделлю (Task 4)</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Models" method="post" class="mt-4">
+            <div class="form-group mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="FavoriteNumber"></label>
+                <input asp-for="FavoriteNumber" type="number" class="form-control" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="BirthDate"></label>
+                <input asp-for="BirthDate" type="date" class="form-control" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="FavoriteColor"></label>
+                <input asp-for="FavoriteColor" type="color" class="form-control form-control-color" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Рівень досвіду</label><br />
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="ExperienceLevel" value="Junior" id="radioJunior" />
+                    <label class="form-check-label" for="radioJunior">Junior</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="ExperienceLevel" value="Middle" id="radioMiddle" />
+                    <label class="form-check-label" for="radioMiddle">Middle</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="ExperienceLevel" value="Senior" id="radioSenior" />
+                    <label class="form-check-label" for="radioSenior">Senior</label>
+                </div>
+            </div>
+
+            <div class="form-group form-check mb-4">
+                <input asp-for="Subscribe" class="form-check-input" />
+                <label asp-for="Subscribe" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Відправити</button>
+        </form>
+    </div>
+
+    @if (ViewBag.Submitted == true)
+    {
+        <div class="col-md-6 mt-4 mt-md-0">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    Результат відправки
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Ім'я:</strong> @Model.Name</li>
+                        <li class="list-group-item"><strong>Кількість:</strong> @Model.FavoriteNumber</li>
+                        <li class="list-group-item"><strong>Дата:</strong> @Model.BirthDate.ToShortDateString()</li>
+                        <li class="list-group-item">
+                            <strong>Колір:</strong> 
+                            <span style="display:inline-block; width:20px; height:20px; background-color:@Model.FavoriteColor; border:1px solid #000; vertical-align:middle;"></span>
+                            (@Model.FavoriteColor)
+                        </li>
+                        <li class="list-group-item"><strong>Досвід:</strong> @Model.ExperienceLevel</li>
+                        <li class="list-group-item"><strong>Підписка:</strong> @(Model.Subscribe ? "Так" : "Ні")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Принципи ASP.NET Core";
+}
+<div class="text-center">
+    <h1 class="display-4">Принципи ASP.NET Core MVC</h1>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h3>Основні принципи</h3>
+        <ul>
+            <li><strong>Кросплатформеність:</strong> Працює на Windows, macOS та Linux.</li>
+            <li><strong>Висока продуктивність:</strong> Один із найшвидших фреймворків.</li>
+            <li><strong>Dependency Injection (IoC):</strong> Вбудована підтримка ін'єкції залежностей.</li>
+            <li><strong>Модульність:</strong> Middleware архітектура для побудови конвеєра обробки запитів.</li>
+            <li><strong>MVC Патерн:</strong> Розділення на Model (Дані), View (Інтерфейс) та Controller (Логіка).</li>
+        </ul>
+    </div>
+    <div class="col-md-6 text-center">
+        <svg width="200" height="200" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="#512bd4" />
+            <text x="50" y="55" font-size="20" text-anchor="middle" fill="white">ASP.NET</text>
+        </svg>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h3>Порядок створення нової сторінки (конспект)</h3>
+        <ol>
+            <li><strong>Створення Action в контролері:</strong> Додайте новий метод (наприклад, <code>public IActionResult MyPage()</code>) у відповідний контролер (наприклад, <code>HomeController</code>).</li>
+            <li><strong>Повернення View:</strong> Метод повинен повертати <code>return View();</code>.</li>
+            <li><strong>Створення View:</strong> У папці <code>Views/{НазваКонтролера}</code> створіть файл <code>MyPage.cshtml</code>.</li>
+            <li><strong>Написання HTML/Razor:</strong> Наповніть створений файл HTML-розміткою та кодом Razor.</li>
+            <li><strong>Додавання посилання:</strong> (Опціонально) додайте посилання на нову сторінку у файл <code>_Layout.cshtml</code> за допомогою <code>asp-controller</code> та <code>asp-action</code>.</li>
+        </ol>
+    </div>
+</div>

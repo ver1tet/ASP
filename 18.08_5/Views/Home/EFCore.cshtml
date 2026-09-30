@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Entity Framework Core";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Інтеграція Entity Framework Core в ASP.NET Core</h1>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h3 class="card-title h5 mb-0">Порядок додавання БД до проєкту</h3>
+        </div>
+        <div class="card-body">
+            <ol class="list-group list-group-numbered list-group-flush">
+                <li class="list-group-item">
+                    <strong>Встановлення пакетів NuGet:</strong><br />
+                    <code>Microsoft.EntityFrameworkCore.SqlServer</code> (або інший провайдер)<br />
+                    <code>Microsoft.EntityFrameworkCore.Tools</code>
+                </li>
+                <li class="list-group-item">
+                    <strong>Налаштування рядка підключення:</strong><br />
+                    У файлі <code>appsettings.json</code> додати розділ <code>ConnectionStrings</code>.
+                </li>
+                <li class="list-group-item">
+                    <strong>Створення контексту даних (DbContext):</strong><br />
+                    Створити клас, що успадковує <code>DbContext</code> та містить властивості <code>DbSet&lt;T&gt;</code> для моделей.
+                </li>
+                <li class="list-group-item">
+                    <strong>Реєстрація контексту в IoC:</strong><br />
+                    У <code>Program.cs</code> додати: <br />
+                    <code>builder.Services.AddDbContext&lt;AppDbContext&gt;(options => options.UseSqlServer(...));</code>
+                </li>
+                <li class="list-group-item">
+                    <strong>Створення міграцій:</strong><br />
+                    Виконати в консолі: <code>Add-Migration InitialCreate</code>.
+                </li>
+                <li class="list-group-item">
+                    <strong>Оновлення бази даних:</strong><br />
+                    Виконати: <code>Update-Database</code>.
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h3 class="card-title h5 mb-0">Термінологія БД</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">СУБД (DBMS)</dt>
+                <dd class="col-sm-9">Система управління базами даних (наприклад, SQL Server, PostgreSQL, MySQL).</dd>
+
+                <dt class="col-sm-3">ORM</dt>
+                <dd class="col-sm-9">Object-Relational Mapping. Технологія, яка пов'язує таблиці БД з об'єктами в коді (Entity Framework є прикладом ORM).</dd>
+
+                <dt class="col-sm-3">Таблиця (Table)</dt>
+                <dd class="col-sm-9">Структура зберігання даних, яка складається з рядків та стовпців.</dd>
+
+                <dt class="col-sm-3">Первинний ключ (PK)</dt>
+                <dd class="col-sm-9">Унікальний ідентифікатор кожного запису в таблиці (зазвичай стовпець <code>Id</code>).</dd>
+
+                <dt class="col-sm-3">Зовнішній ключ (FK)</dt>
+                <dd class="col-sm-9">Стовпець, що посилається на первинний ключ іншої таблиці, забезпечуючи зв'язок між ними.</dd>
+
+                <dt class="col-sm-3">Міграція (Migration)</dt>
+                <dd class="col-sm-9">Код, який описує зміни у структурі БД для їх застосування або скасування.</dd>
+            </dl>
+        </div>
+    </div>
+</div>

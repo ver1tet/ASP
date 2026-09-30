@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Товари";
+    
+    var products = new List<dynamic>
+    {
+        new { Name = "Ноутбук Dell XPS 15", Price = 45000 },
+        new { Name = "Мишка Logitech MX Master 3", Price = 3500 },
+        new { Name = "Клавіатура Keychron K8", Price = 4200 },
+        new { Name = "Монітор LG UltraGear", Price = 12000 },
+        new { Name = "Навушники Sony WH-1000XM4", Price = 11500 },
+        new { Name = "Килимок для миші", Price = 500 }
+    };
+}
+
+<h2>Список товарів (Zebra Table Razor)</h2>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Назва товару</th>
+            <th>Ціна (грн)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < products.Count; i++)
+        {
+            var bgClass = (i % 2 == 0) ? "background-color: #f8f9fa;" : "background-color: #ffffff;";
+            <tr style="@bgClass">
+                <td>@(i + 1)</td>
+                <td>@products[i].Name</td>
+                <td>@products[i].Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

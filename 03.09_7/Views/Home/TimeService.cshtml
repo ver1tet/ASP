@@ -1,0 +1,25 @@
+@using AspHomework.Services
+@inject ITimeService TimeService
+
+@{
+    ViewData["Title"] = "Служба часу (IoC)";
+}
+
+<h2>IoC: Служба часу (Singleton)</h2>
+
+<div class="alert alert-info mt-4">
+    <h4>Поточна мітка часу (Timestamp):</h4>
+    <p style="font-size: 1.5em; font-weight: bold;">@TimeService.GetCurrentTimestamp()</p>
+    
+    <hr />
+
+    <h4>Хеш-код екземпляра служби:</h4>
+    <p style="font-size: 1.2em; font-family: monospace;">@TimeService.GetHashCode()</p>
+</div>
+
+<p class="text-muted mt-3">
+    <em>Оновіть сторінку. Ви помітите, що мітка часу змінюється (служба видає новий час), 
+    але хеш-код залишається незмінним. Це підтверджує, що служба зареєстрована як <strong>Singleton</strong>.</em>
+</p>
+
+<a href="/Home/TimeService" class="btn btn-primary">Оновити сторінку</a>
