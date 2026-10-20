@@ -1,0 +1,64 @@
+@model ASP_P42.Models.Rest.RestMetaPagination
+@*
+    Д.З. 24.09.2026 - Серверна версія пагінатора (Razor Partial View)
+    Використання:
+    <partial name="_Pagination" model="Model.Pagination" />
+
+    Вимоги:
+    - поточна сторінка відображається вибраною (class="page-item active")
+    - якщо поточна сторінка є першою, то кнопка назад "<<" є неактивною (class="page-item disabled")
+    - якщо поточна сторінка є останньою, то кнопка вперед ">>" є неактивною (class="page-item disabled")
+    - якщо кількість сторінок більша за 3, то показувати поточну та сусідні << 5 [6] 7 >>
+*@
+
+@if (Model != null && Model.TotalPages > 1)
+{
+    int page = Model.Page;
+    int totalPages = Model.TotalPages;
+
+    int startPage = 1;
+    int endPage = totalPages;
+
+    if (totalPages > 3)
+    {
+        startPage = page - 1;
+        endPage = page + 1;
+
+        if (startPage < 1)
+        {
+            startPage = 1;
+            endPage = 3;
+        }
+        else if (endPage > totalPages)
+        {
+            endPage = totalPages;
+            startPage = totalPages - 2;
+        }
+    }
+
+    <nav aria-label="Пагінація сторінок">
+        <ul class="pagination justify-content-center">
+            @* Кнопка назад "<<" *@
+            <li class="page-item @(page == 1 ? "disabled" : "")">
+                <a class="page-link" href="?page=@(page - 1)" aria-label="Назад">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            @* Номери сторінок *@
+            @for (int i = startPage; i <= endPage; i++)
+            {
+                <li class="page-item @(i == page ? "active" : "")">
+                    <a class="page-link" href="?page=@i">@i</a>
+                </li>
+            }
+
+            @* Кнопка вперед ">>" *@
+            <li class="page-item @(page == totalPages ? "disabled" : "")">
+                <a class="page-link" href="?page=@(page + 1)" aria-label="Вперед">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+}
