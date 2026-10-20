@@ -1,23 +1,19 @@
 namespace ASP_P42.Models.Rest
 {
-    /* Д.З. 22.09.2026 - Заповнити class RestStatus стандартними статусами відповідей,
-     * а також додати типові статуси з вільними кодами, наприклад,
-     * 440 Header Required (відсутній необхідний заголовок)
-     * 441 Header Malformed (неправильний формат заголовку)
-     */
+
     public class RestStatus
     {
         public bool   IsOk    { get; set; }
         public int    Code    { get; set; }
         public String Message { get; set; } = null!;
 
-        // ── 1xx Informational ──────────────────────────────────────────────
+
         public static readonly RestStatus Continue           = new() { IsOk = true,  Code = 100, Message = "Continue" };
         public static readonly RestStatus SwitchingProtocols= new() { IsOk = true,  Code = 101, Message = "Switching Protocols" };
         public static readonly RestStatus Processing         = new() { IsOk = true,  Code = 102, Message = "Processing" };
         public static readonly RestStatus EarlyHints        = new() { IsOk = true,  Code = 103, Message = "Early Hints" };
 
-        // ── 2xx Success ────────────────────────────────────────────────────
+
         public static readonly RestStatus Ok                 = new() { IsOk = true,  Code = 200, Message = "OK" };
         public static readonly RestStatus Created            = new() { IsOk = true,  Code = 201, Message = "Created" };
         public static readonly RestStatus Accepted           = new() { IsOk = true,  Code = 202, Message = "Accepted" };
@@ -29,7 +25,6 @@ namespace ASP_P42.Models.Rest
         public static readonly RestStatus AlreadyReported    = new() { IsOk = true,  Code = 208, Message = "Already Reported" };
         public static readonly RestStatus IMUsed             = new() { IsOk = true,  Code = 226, Message = "IM Used" };
 
-        // ── 3xx Redirection ────────────────────────────────────────────────
         public static readonly RestStatus MultipleChoices    = new() { IsOk = false, Code = 300, Message = "Multiple Choices" };
         public static readonly RestStatus MovedPermanently   = new() { IsOk = false, Code = 301, Message = "Moved Permanently" };
         public static readonly RestStatus Found              = new() { IsOk = false, Code = 302, Message = "Found" };
@@ -39,7 +34,7 @@ namespace ASP_P42.Models.Rest
         public static readonly RestStatus TemporaryRedirect  = new() { IsOk = false, Code = 307, Message = "Temporary Redirect" };
         public static readonly RestStatus PermanentRedirect  = new() { IsOk = false, Code = 308, Message = "Permanent Redirect" };
 
-        // ── 4xx Client Errors ──────────────────────────────────────────────
+
         public static readonly RestStatus BadRequest         = new() { IsOk = false, Code = 400, Message = "Bad Request" };
         public static readonly RestStatus Unauthorized       = new() { IsOk = false, Code = 401, Message = "Unauthorized" };
         public static readonly RestStatus PaymentRequired    = new() { IsOk = false, Code = 402, Message = "Payment Required" };
@@ -70,7 +65,7 @@ namespace ASP_P42.Models.Rest
         public static readonly RestStatus HeaderFieldsTooLarge=new() { IsOk = false, Code = 431, Message = "Request Header Fields Too Large" };
         public static readonly RestStatus UnavailableForLegal= new() { IsOk = false, Code = 451, Message = "Unavailable For Legal Reasons" };
 
-        // ── 5xx Server Errors ──────────────────────────────────────────────
+
         public static readonly RestStatus InternalServerError= new() { IsOk = false, Code = 500, Message = "Internal Server Error" };
         public static readonly RestStatus NotImplemented     = new() { IsOk = false, Code = 501, Message = "Not Implemented" };
         public static readonly RestStatus BadGateway         = new() { IsOk = false, Code = 502, Message = "Bad Gateway" };
@@ -83,29 +78,25 @@ namespace ASP_P42.Models.Rest
         public static readonly RestStatus NotExtended        = new() { IsOk = false, Code = 510, Message = "Not Extended" };
         public static readonly RestStatus NetworkAuthRequired = new(){ IsOk = false, Code = 511, Message = "Network Authentication Required" };
 
-        // ── 4xx Custom (вільні коди — розширення для потреб проєкту) ──────
-        /// <summary>440 — відсутній необхідний заголовок запиту</summary>
+
         public static readonly RestStatus HeaderRequired      = new() { IsOk = false, Code = 440, Message = "Header Required" };
 
-        /// <summary>441 — заголовок присутній, але має неправильний формат</summary>
+
         public static readonly RestStatus HeaderMalformed     = new() { IsOk = false, Code = 441, Message = "Header Malformed" };
 
-        /// <summary>442 — значення заголовка не підтримується або заборонено</summary>
+ 
         public static readonly RestStatus HeaderValueNotAllowed=new() { IsOk = false, Code = 442, Message = "Header Value Not Allowed" };
 
-        /// <summary>450 — токен відсутній (не передано Bearer / JWT)</summary>
+
         public static readonly RestStatus TokenRequired       = new() { IsOk = false, Code = 450, Message = "Token Required" };
 
-        /// <summary>451 зайнятий — токен недійсний або прострочений (не плутати з 451 Legal)</summary>
+
         public static readonly RestStatus TokenExpired        = new() { IsOk = false, Code = 452, Message = "Token Expired" };
 
-        /// <summary>453 — токен підроблений або підпис не збігається</summary>
+
         public static readonly RestStatus TokenInvalid        = new() { IsOk = false, Code = 453, Message = "Token Invalid" };
 
-        // ── Допоміжний фабричний метод ─────────────────────────────────────
-        /// <summary>
-        /// Створити кастомний статус з довільними параметрами.
-        /// </summary>
+
         public static RestStatus Custom(int code, String message, bool isOk = false)
             => new() { IsOk = isOk, Code = code, Message = message };
     }
