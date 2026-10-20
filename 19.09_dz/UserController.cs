@@ -6,21 +6,14 @@ using System.Text.Json;
 
 namespace ASP_P42.Controllers
 {
-    /* Д.З. 19.09.2026 - Перенести логіку реєстрації та автентифікації
-     * користувача з UserController у DataAccessor.
-     *
-     * UserController тепер є тонким шаром (thin controller):
-     * - отримує дані від клієнта
-     * - делегує бізнес-логіку до DataAccessor
-     * - повертає відповідь клієнту
-     */
+
     public class UserController(
         DataAccessor dataAccessor
     ) : Controller
     {
         private readonly DataAccessor _dataAccessor = dataAccessor;
 
-        // Реєстрація — логіка перенесена до DataAccessor.RegisterUser()
+
         public IActionResult SignUp([FromBody] UserSignupFormModel formModel)
         {
             try
@@ -34,7 +27,7 @@ namespace ASP_P42.Controllers
             }
         }
 
-        // Basic Auth — логіка перенесена до DataAccessor.AuthenticateBasic()
+
         public IActionResult BasicAuth()
         {
             try
@@ -54,7 +47,7 @@ namespace ASP_P42.Controllers
             }
         }
 
-        // Basic Auth з JWT — автентифікація через DataAccessor, токен формується тут
+
         public IActionResult BasicAuthJwt()
         {
             try
@@ -65,7 +58,7 @@ namespace ASP_P42.Controllers
                 if (userAccess == null)
                     return Unauthorized("Credentials rejected: check login and password");
 
-                // Формуємо JWT токен
+
                 var header = new { alg = "HS256", typ = "JWT" };
                 long time = (DateTime.Now.Ticks - DateTime.UnixEpoch.Ticks) / 100000;
                 var payload = new
