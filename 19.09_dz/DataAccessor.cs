@@ -7,13 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace ASP_P42.Data
 {
-    /* Д.З. 19.09.2026 - Accessor: перенести логіку реєстрації та автентифікації
-     * користувача з UserController у DataAccessor.
-     *
-     * Методи перенесено:
-     *   RegisterUser()      — реєстрація нового користувача
-     *   AuthenticateUser()  — перевірка логіна і пароля, повертає UserAccess або null
-     */
+
     public class DataAccessor(DataContext dataContext, IKdfService kdfService)
     {
         private readonly DataContext _dataContext = dataContext;
@@ -28,16 +22,10 @@ namespace ASP_P42.Data
             return result;
         }
 
-        // ===================== User: Register & Authenticate =====================
 
-        /// <summary>
-        /// Реєстрація нового користувача.
-        /// Виконує всю валідацію та запис у БД.
-        /// Кидає Exception з повідомленням про помилку при невалідних даних.
-        /// </summary>
         public void RegisterUser(UserSignupFormModel formModel)
         {
-            // --- Дешеві перевірки (без БД) ---
+
             if (formModel == null)
                 throw new ArgumentNullException(nameof(formModel), "Data structure non-bindable to model");
 
@@ -61,7 +49,7 @@ namespace ASP_P42.Data
             if (formModel.Password != formModel.Repeat)
                 throw new Exception("Password and Repeat mismatch");
 
-            // --- Формат та нормалізація ---
+
             formModel.FullName = formModel.FullName.Trim();
             if (formModel.FullName.Length < 2)
                 throw new Exception(nameof(formModel.FullName) + " too short (2 symbols at least)");
@@ -78,11 +66,11 @@ namespace ASP_P42.Data
                 @"^\w+([-+.']\w+)*@\w+([-.]\\w+)*\.\w+([-.]\\w+)*$"))
                 throw new Exception(nameof(formModel.Email) + " has invalid format");
 
-            // --- Перевірка БД: унікальність логіна ---
+
             if (_dataContext.UserAccesses.Any(ua => ua.Login == formModel.Login))
                 throw new Exception(nameof(formModel.Login) + $" '{formModel.Login}' is already in use");
 
-            // --- Збереження ---
+
             Guid userId = GetDbIdentity();
             _dataContext.UsersData.Add(new()
             {
@@ -108,11 +96,7 @@ namespace ASP_P42.Data
             _dataContext.SaveChanges();
         }
 
-        /// <summary>
-        /// Автентифікація за логіном та паролем (Basic Auth).
-        /// Повертає UserAccess якщо облікові дані коректні, або null якщо пароль невірний.
-        /// Кидає Exception якщо заголовок Authorization відсутній або невалідний.
-        /// </summary>
+
         public UserAccess? AuthenticateBasic(String authHeader)
         {
             if (String.IsNullOrEmpty(authHeader))
@@ -166,7 +150,6 @@ namespace ASP_P42.Data
             return null;
         }
 
-        // ===================== ProductGroup CRUD =====================
 
         public async Task<bool> IsGroupSlugUniqueAsync(String slug, Guid? excludeId = null)
         {
@@ -227,7 +210,7 @@ namespace ASP_P42.Data
             await _dataContext.SaveChangesAsync();
         }
 
-        // ===================== Product =====================
+
 
         public async Task<Guid> AddNewProduct(AdminAddProductFormModel formModel, String? imageUrl)
         {
