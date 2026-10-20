@@ -4,17 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASP_P42.Data
 {
-    /* Д.З. 17.09.2026 - Реалізувати CRUD (Create[вже є], Read, Update, Delete)
-     * для сутності ProductGroup у DataAccessor
-     *
-     * C - Create  : AddNewProductGroup()       — вже був
-     * R - Read    : GetAllProductGroups()       — вже був
-     *               GetProductGroupById()       — вже був (nullable)
-     *               GetProductGroupBySlug()     — новий
-     * U - Update  : UpdateProductGroup()        — вже був, розширено
-     * D - Delete  : DeleteProductGroup()        — вже був (soft-delete IsHidden=1)
-     *               HardDeleteProductGroup()    — новий (фізичне видалення)
-     */
+    
     public class DataAccessor(DataContext dataContext)
     {
         private readonly DataContext _dataContext = dataContext;
