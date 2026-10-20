@@ -18,9 +18,7 @@ namespace ASP_P42.Data
             return result;
         }
 
-        // ===================== ProductGroup CRUD =====================
 
-        // [C] Create
         public async Task<bool> IsGroupSlugUniqueAsync(String slug, Guid? excludeId = null)
         {
             return !_dataContext.ProductGroups
@@ -41,7 +39,7 @@ namespace ASP_P42.Data
             return id;
         }
 
-        // [R] Read — список усіх груп
+
         public List<Entities.ProductGroup> GetAllProductGroups(bool isIncludeHidden = false)
         {
             IQueryable<Entities.ProductGroup> query = _dataContext.ProductGroups;
@@ -52,7 +50,7 @@ namespace ASP_P42.Data
             return [..query.OrderBy(g => g.OrderInPrice)];
         }
 
-        // [R] Read — одна група за Id (nullable — повертає null якщо не знайдено)
+
         public async Task<Entities.ProductGroup?> GetProductGroupById(Guid id)
         {
             return _dataContext.ProductGroups
@@ -61,7 +59,7 @@ namespace ASP_P42.Data
                 .FirstOrDefault(g => g.Id == id);
         }
 
-        // [R] Read — одна група за Slug
+  
         public async Task<Entities.ProductGroup?> GetProductGroupBySlug(String slug)
         {
             return _dataContext.ProductGroups
@@ -70,7 +68,7 @@ namespace ASP_P42.Data
                 .FirstOrDefault(g => g.Slug == slug);
         }
 
-        // [U] Update — оновлення існуючої групи
+
         public async Task UpdateProductGroup(Entities.ProductGroup productGroup)
         {
             var existing = await GetProductGroupById(productGroup.Id)
@@ -95,7 +93,7 @@ namespace ASP_P42.Data
             await _dataContext.SaveChangesAsync();
         }
 
-        // [D] Delete — м'яке видалення (IsHidden = 1), запис залишається в БД
+
         public async Task DeleteProductGroup(Guid id)
         {
             var existing = await GetProductGroupById(id)
@@ -105,7 +103,7 @@ namespace ASP_P42.Data
             await _dataContext.SaveChangesAsync();
         }
 
-        // [D] Hard Delete — фізичне видалення запису з БД
+
         public async Task HardDeleteProductGroup(Guid id)
         {
             var existing = await GetProductGroupById(id)
@@ -115,7 +113,7 @@ namespace ASP_P42.Data
             await _dataContext.SaveChangesAsync();
         }
 
-        // ===================== Product =====================
+        // Product
 
         public async Task<Guid> AddNewProduct(AdminAddProductFormModel formModel, String? imageUrl)
         {
