@@ -8,14 +8,6 @@ namespace ASP_P42.Data
     {
         private readonly DataContext _dataContext = dataContext;
 
-        /* Д.З. 15.09.2026 - Реалізувати метод отримання унікального ідентифікатора
-         * з бази даних. SQL Server має функцію NEWID(), яка генерує
-         * унікальний ідентифікатор.
-         *
-         * Використовуємо FromSqlRaw для виконання скалярного SQL-запиту.
-         * SQL Server: SELECT NEWID() повертає новий GUID безпосередньо з БД,
-         * що гарантує унікальність на рівні сервера бази даних.
-         */
         public Guid GetDbIdentity()
         {
             // Виконуємо SQL-запит до SQL Server, який генерує GUID на стороні БД
